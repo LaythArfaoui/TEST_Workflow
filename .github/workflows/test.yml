@@ -1,0 +1,22 @@
+name: test-outputs
+on: workflow_dispatch
+jobs:
+  first:
+    runs-on: ubuntu-latest
+    outputs:
+      color: ${{ steps.pick.outputs.color }}
+    steps:
+      - id: pick
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setOutput("color", "blue")
+
+      - name: Same job, later step
+        run: echo "step note says ${{ steps.pick.outputs.color }}"
+
+  second:
+    needs: ['first']
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "job note says ${{ needs.first.outputs.color }}"
