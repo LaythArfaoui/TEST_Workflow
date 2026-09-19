@@ -2,6 +2,7 @@ name: test-outputs
 on: workflow_dispatch
 jobs:
   first:
+    name: layth
     runs-on: ubuntu-latest
     outputs:
       color: ${{ steps.pick.outputs.color }}
